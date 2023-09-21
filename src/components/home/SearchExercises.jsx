@@ -1,36 +1,36 @@
 import { Box, Button, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchValue, setExercises, fetchExercises, getExercises ,} from "../../features/slices/exerciseSlice";
+import store from './../../features/store';
 
 const SearchExercises = () => {
     const dispatch = useDispatch();
     const searchValue = useSelector((state) => state.exercise.searchValue);
     const theme = useTheme();
-    const exercises = useSelector(getExercises);
     
     
     const handleSearchChange = (event) => {
         dispatch(setSearchValue(event.target.value.toLowerCase()));
     };
 
-
   
     const handleClick = () => {
         if (searchValue) {
-            dispatch(fetchExercises());
-            const searchedExercises = exercises.filter((exercise) => (
-                exercise.name.toLowerCase().includes(searchValue) ||
-                exercise.target.toLowerCase().includes(searchValue) ||
-                exercise.bodyPart.toLowerCase().includes(searchValue) ||
-                exercise.equipment.toLowerCase().includes(searchValue)
-
+          dispatch(fetchExercises()).then(() => {
+            const allExercises = getExercises(store.getState()); 
+            const searchedExercises = allExercises.filter((exercise) => (
+              exercise.name.toLowerCase().includes(searchValue) ||
+              exercise.target.toLowerCase().includes(searchValue) ||
+              exercise.bodyPart.toLowerCase().includes(searchValue) ||
+              exercise.equipment.toLowerCase().includes(searchValue)
             ));
+      
             dispatch(setSearchValue(""));
-
             dispatch(setExercises(searchedExercises));
-            console.log(searchedExercises);
+          });
         }
-    };
+      };
+      
 
     return (
         <Stack alignItems="center" mt="30px" p="20px" justifyContent="center">

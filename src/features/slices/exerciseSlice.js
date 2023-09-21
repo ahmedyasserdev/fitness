@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const rapidAPI = axios.create({
+const exerciseApi = axios.create({
     baseURL: 'https://exercisedb.p.rapidapi.com',
     headers: {
         'X-RapidAPI-Key': import.meta.env.VITE_API_KEY ,
@@ -14,7 +14,7 @@ export const fetchExercises = createAsyncThunk(
     'exercise/fetchExercises',
     async () => {
         const url = `/exercises`;
-        const response = await rapidAPI.get(url);
+        const response = await exerciseApi.get(url);
         return response.data;
     }
 );
@@ -23,7 +23,7 @@ export const fetchBodyParts = createAsyncThunk(
     'exercise/fetchBodyParts',
     async () => {
         const url = `/exercises/bodyPartList`;
-        const response = await rapidAPI.get(url);
+        const response = await exerciseApi.get(url);
         return response.data;
     }
 );

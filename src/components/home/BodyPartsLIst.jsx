@@ -1,71 +1,73 @@
-/* eslint-disable react/jsx-no-duplicate-props */
-import { useEffect } from "react";
-import {
-    fetchBodyParts,
-    getBodyParts,
-    getChosenPart,
-    setChosenPart,
-} from "../../features/slices/exerciseSlice";
+import  { useEffect, useState } from 'react';
+import { Box, Stack,  IconButton , useMediaQuery,  } from "@mui/material";
+import BodyPart from "./BodyPart";
+import RightArrowIcon from '/assets/icons/right-arrow.png';
+import LeftArrowIcon from '/assets/icons/left-arrow.png';
 import { useDispatch, useSelector } from "react-redux";
-import { Stack, Box, Typography, useTheme } from "@mui/material";
-import icon from "/assets/icons/gym.png";
+import { fetchBodyParts, getBodyParts } from "../../features/slices/exerciseSlice";
 
 const BodyPartsList = () => {
-    const theme = useTheme();
     const bodyParts = useSelector(getBodyParts);
     const dispatch = useDispatch();
-    const chosenPart = useSelector(getChosenPart);
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+      const isMediumScreen =  useMediaQuery(' (min-width : 750px) and (max-width:1024px)');
+      const isSmallScreen =  useMediaQuery('(max-width:650px)');
+
     useEffect(() => {
         dispatch(fetchBodyParts());
-    }, []);
+    }, [dispatch]);
 
-    console.log(bodyParts);
+    const handleClick = (dir) => {
+        setScrollPosition((prevSlide) => prevSlide + (dir === "left" ? -1 : 1));
+    };
+
+
+
+
+    const isSlideDisabled = (dir) => {
+        if (dir === "left") {
+            return scrollPosition === 0;
+        } else if (dir === "right") {
+            return scrollPosition === bodyParts.length - (isMediumScreen ? 6: isSmallScreen ? 4 : 8 )
+        }
+        return false;
+    };
+
+    const menuItems = bodyParts.map((item, index) => (
+        <BodyPart key={index} item={item} />
+    ));
 
     return (
-        <Stack alignItems="center"
-            justifyContent="center"
-            direction={"row"} mt={"40px"}  
-            gap ={{xs: "15px" , md : "20px" }}
-      
+        <Stack sx={{ position: "relative" }} p = {"10px"} >
+            <IconButton
+            size = "small"
+                disabled={isSlideDisabled("left")}
+                onClick={() => handleClick("left")}
+                className="right-arrow"
             >
-            {bodyParts.map((item) => {
-                return (
-                    <Box
-                        sx={{
-                            border:
-                                chosenPart === item
-                                    ? `2px solid ${theme.palette.primaryColor.main}`
-                                    : null,
-
-                            backgroundColor: "#fff",
-                            height : "auto",
-                            width  :"auto",
-                            p : "50px" ,
-                            cursor : "pointer",
-                            borderLeftRadius : "20px",
-                            textAlign : "center",
-                            display : "flex" ,
-                            gap : "40px" ,
-                            flexDirection : "column" ,
-                            alignItems :"center"
-
-                            }}
-                        className="bodyPart-card"
-                        type="button"
-
-                        key={item.id}
-                        onClick={() => dispatch(setChosenPart(item))}
-                    >
-                            <img
-                                src={icon}
-                                alt="dumbbell"
-                                style={{ width: "50px", height: "50px" }}
-                            />
-
-                            <Typography fontSize = {"24px"} fontWeight = {"bold"} textTransform = "capitalize" color= "#3a1212"  >{item}</Typography>
-                    </Box>
-                );
-            })}
+                <img src={LeftArrowIcon} alt="left-arrow" />
+            </IconButton>
+            <Box
+                sx={{
+                    display: 'flex',
+                    transition: 'transform 0.3s ease-in-out',
+                    transform: `translateX(${scrollPosition * -250}px)`,
+                    gap: "13px"
+                }}
+            >
+                {menuItems}
+            </Box>
+          
+          
+            <IconButton
+            size = "small"
+                disabled={isSlideDisabled("right")}
+                onClick={() => handleClick("right")}
+                className="left-arrow"
+            >
+                <img src={RightArrowIcon} alt="right-arrow" />
+            </IconButton>
         </Stack>
     );
 };
