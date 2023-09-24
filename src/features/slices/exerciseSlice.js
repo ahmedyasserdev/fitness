@@ -27,6 +27,16 @@ export const fetchBodyParts = createAsyncThunk(
         return response.data;
     }
 );
+export const fetchByBodyParts = createAsyncThunk(
+    'exercise/fetchByBodyParts',
+    async (chosenPart) => {
+        const url = `/exercises/bodyPart/${chosenPart}`;
+        const response = await exerciseApi.get(url);
+        return response.data;
+    }
+);
+
+
 
 const initialState = {
     exercises: [],
@@ -64,6 +74,11 @@ const exercise = createSlice({
         [fetchBodyParts.fulfilled]: (state, { payload }) => {
             state.bodyParts = [  "all", ...payload ];
             state.loading = false;
+        },
+
+           [fetchByBodyParts.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.exercises = payload
         },
     },
 });

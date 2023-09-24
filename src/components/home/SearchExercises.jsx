@@ -1,3 +1,4 @@
+import {useEffect} from "react"
 import { Box, Button, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchValue, setExercises, fetchExercises, getExercises ,} from "../../features/slices/exerciseSlice";
@@ -13,6 +14,7 @@ const SearchExercises = () => {
         dispatch(setSearchValue(event.target.value.toLowerCase()));
     };
 
+
   
     const handleClick = () => {
         if (searchValue) {
@@ -25,11 +27,23 @@ const SearchExercises = () => {
               exercise.equipment.toLowerCase().includes(searchValue)
             ));
       
-            dispatch(setSearchValue(""));
             dispatch(setExercises(searchedExercises));
+            dispatch(setSearchValue(""));
           });
         }
       };
+
+
+// ...
+
+    // ...
+
+    useEffect(() => {
+        dispatch(fetchExercises());
+    }, [dispatch]);
+
+    // ...
+
       
 
     return (
