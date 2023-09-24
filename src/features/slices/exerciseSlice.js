@@ -5,7 +5,7 @@ import axios from 'axios';
 const exerciseApi = axios.create({
     baseURL: 'https://exercisedb.p.rapidapi.com',
     headers: {
-        'X-RapidAPI-Key': import.meta.env.VITE_API_KEY ,
+        'X-RapidAPI-Key': import.meta.env.VITE_EXERCISES_API_KEY,
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
     }
 });
@@ -36,11 +36,21 @@ export const fetchByBodyParts = createAsyncThunk(
     }
 );
 
+export const fetchById = createAsyncThunk(
+    'exercise/fetchById',
+    async (id) => {
+        const url = `/exercises/exercise/${id}`;
+        const response = await exerciseApi.get(url);
+        return response.data;
+    }
+);
+
 
 
 const initialState = {
     exercises: [],
     bodyParts: [],
+    exerciseDetail:[],
     chosenPart: "all",
     searchValue: '',
     loading: false,
@@ -56,7 +66,7 @@ const exercise = createSlice({
         setExercises: (state, { payload }) => {
             state.exercises = payload;
         },
-        setChosenPart : (state, { payload }) => {
+        setChosenPart: (state, { payload }) => {
             state.chosenPart = payload
         },
     },
@@ -72,22 +82,32 @@ const exercise = createSlice({
             state.loading = true;
         },
         [fetchBodyParts.fulfilled]: (state, { payload }) => {
-            state.bodyParts = [  "all", ...payload ];
+            state.bodyParts = ["all", ...payload];
             state.loading = false;
         },
 
-           [fetchByBodyParts.fulfilled]: (state, { payload }) => {
+        [fetchByBodyParts.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchByBodyParts.fulfilled]: (state, { payload }) => {
             state.loading = false;
             state.exercises = payload
+        },
+        [fetchById.pending]: (state,) => {
+            state.loading = true;
+        },
+        [fetchById.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.exerciseDetail = payload
         },
     },
 });
 
-export const { setSearchValue, setExercises , setChosenPart} = exercise.actions;
+export const { setSearchValue, setExercises, setChosenPart } = exercise.actions;
 
 export const getExercises = (state) => state.exercise.exercises;
 export const getBodyParts = (state) => state.exercise.bodyParts;
 export const getChosenPart = (state) => state.exercise.chosenPart;
-
+export const getExerciseDetail = (state) => state.exercise.exerciseDetail
 
 export default exercise.reducer;
