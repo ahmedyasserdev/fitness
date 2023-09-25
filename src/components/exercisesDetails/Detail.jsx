@@ -22,7 +22,7 @@ const Detail = ({exerciseDetail}) => {
 
     return (
         <Stack gap={"60px"} sx={{ flexDirection: { lg: "row" }, p: "20px", alignItems: "center", textAlign: { xs: "center", lg: "start" } }}  >
-            <img src={gifUrl} alt={name} loading={"lazy"} className="detail-image" />
+            <img src={gifUrl} alt={name} className="detail-image" />
 
             <Stack sx={{ gap: { xs: "20px", lg: "35px" } }}  >
                 <Typography variant="h3" fontWeight={"bold"} fontSize={{ xs: "33px", md: "52px" }} >{name}</Typography>

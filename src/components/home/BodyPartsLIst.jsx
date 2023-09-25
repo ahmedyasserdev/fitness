@@ -2,7 +2,7 @@
 import { useEffect, } from 'react';
 import BodyPart from "./BodyPart";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBodyParts, getBodyParts } from "../../features/slices/exerciseSlice";
+import { fetchBodyParts, getBodyParts  } from "../../features/slices/exerciseSlice";
 import Scroller from '../Scroller';
 
 
@@ -17,6 +17,7 @@ const BodyPartsList = () => {
     }, [dispatch]);
 
 
+   
 
     return (
         <Scroller

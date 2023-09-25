@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import { Box, Pagination, Stack, Typography, useTheme } from "@mui/material"
-import { getExercises, getChosenPart, fetchByBodyParts, fetchExercises } from "../../features/slices/exerciseSlice"
+import { getExercises, getChosenPart, fetchByBodyParts, fetchExercises, getLoading  , } from "../../features/slices/exerciseSlice"
 import { useDispatch, useSelector } from "react-redux"
 import ExerciseCard from "./ExerciseCard"
+import Loader from "../Loader"
 const Exercises = () => {
     const theme = useTheme()
     const exercises = useSelector(getExercises)
     const chosenPart = useSelector(getChosenPart)
+    const isLoading = useSelector(getLoading)
+
     const dispatch = useDispatch()
     const [currentPage, setCurentPate] = useState(1)
     const exercisesPerPage = 8
@@ -28,6 +31,17 @@ const Exercises = () => {
         setCurentPate(value);
         window.scrollTo({ top: 300 })
     };
+
+  
+  
+    if (isLoading === true ) {
+      return (
+        <Loader />
+  
+      )
+    }
+  
+
 
     return (
         <Box id="exercises" mt={{ xs: "50px", lg: "110px", }} p={"20px"} >

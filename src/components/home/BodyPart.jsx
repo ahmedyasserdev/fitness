@@ -27,7 +27,8 @@ const BodyPart = ({ item }) => {
                 borderLeftRadius: "20px",
                 flexDirection: "column",
                 my : {xs: "17px" , md :0 },
-                gap : "8px"
+                gap : "8px",
+                mx : "10px"
             }}
             type="button"
             alignItems="center"
@@ -36,8 +37,8 @@ const BodyPart = ({ item }) => {
             key={item.id}
             onClick={handleClick}
         >
-            <img src={icon} alt="dumbbell" style={{ width: '40px', height: '40px' }} />
-            <Typography fontSize="21px" fontWeight="bold" color="#3A1212" textTransform="capitalize">
+            <img src={icon} alt="dumbbell" style={{ width: '40px', height: '40px' ,}} />
+            <Typography  variant = "h6" fontWeight= {"bold"}  fontSize="21px" color="#3A1212" textTransform="capitalize">
                 {item}
             </Typography>
         </Stack>

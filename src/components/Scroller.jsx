@@ -12,7 +12,7 @@ import LeftArrowIcon from '/assets/icons/left-arrow.png';
         if (dir === "left") {
             return scrollPosition === 0;
         } else if (dir === "right") {
-            return scrollPosition === data.length - (isMediumScreen ? 6: isSmallScreen ? 4 : 8 )
+            return scrollPosition === data.length - (isMediumScreen ? 6: isSmallScreen ? 4 : 7 )
         }
         return false;
     };
@@ -43,7 +43,7 @@ import LeftArrowIcon from '/assets/icons/left-arrow.png';
                 onClick={() => setScrollPosition(prev => prev + 1)}
                 className="left-arrow"
             >
-                <img src={RightArrowIcon} alt="right-arrow" />
+                <img src={RightArrowIcon} alt="right-arrow"  />
             </IconButton>
         </Stack>
     );

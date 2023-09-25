@@ -76,9 +76,14 @@ body {
   }
 
   .detail-image {
-    width: 729px;
-    height: 742px;
-  }
+    width: 500px  ;
+    height: 520px;
+    border-radius:  30px ;
+    -webkit-border-radius:  30px ;
+    -moz-border-radius:  30px ;
+    -ms-border-radius:  30px ;
+    -o-border-radius:  30px ;
+}
   
   .hero-banner-img {
     position: absolute;
@@ -128,9 +133,10 @@ body {
   .exercise-video {
     display: flex;
     flex-direction: column;
-    width:auto;
-    height:auto;
-    /* text-decoration: none; */
+    width:250px;
+    height:250px;
+    text-decoration: none;
+
   }
   
   @media screen and (max-width:1200px) {
@@ -163,6 +169,7 @@ body {
     .exercise-video {
       width: 200px;
       height: 200px;
+      margin-block:  20px;
     }
   
   }
