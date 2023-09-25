@@ -1,9 +1,11 @@
-import {  Stack, Typography, Button } from "@mui/material"
+/* eslint-disable react/prop-types */
+import {  Stack, Typography, Button , useTheme } from "@mui/material"
 import bodyPartImage from "/assets/icons/body-part.png"
 import targetImage from "/assets/icons/target.png"
 import equipmentImage from "/assets/icons/equipment.png"
 const Detail = ({exerciseDetail}) => {
     const { name, target, bodyPart, gifUrl, equipment } = exerciseDetail
+    const theme = useTheme()
     const extraDetail = [
         {
             icon: bodyPartImage,
@@ -25,7 +27,7 @@ const Detail = ({exerciseDetail}) => {
             <img src={gifUrl} alt={name} className="detail-image" />
 
             <Stack sx={{ gap: { xs: "20px", lg: "35px" } }}  >
-                <Typography variant="h3" fontWeight={"bold"} fontSize={{ xs: "33px", md: "52px" }} >{name}</Typography>
+                <Typography variant="h3" fontWeight={"bold"} fontSize={{ xs: "33px", md: "52px" }}  color = {theme.palette.primaryColor.main} >{name}</Typography>
                 <Typography variant="h6" >
                     Exercises keep you strong. {name} {" "}
                     is one of the best

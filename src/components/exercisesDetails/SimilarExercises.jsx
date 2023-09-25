@@ -4,7 +4,7 @@ import {
   getTargetMuscle,
   getEquipment,
 } from "../../features/slices/exerciseSlice";
-import { Box, Stack, useTheme, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import ExerciseCard from "../home/ExerciseCard";
 
 const ExerciseSection = ({ title, exercises }) => {

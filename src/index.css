@@ -138,6 +138,13 @@ body {
     text-decoration: none;
 
   }
+
+  .MuiTooltip-tooltip {
+    background-color : #fff !important ;
+    color : #FF2625 !important ;
+    font-size: 15px !important ;
+    font-weight: 600 !important ;
+  }
   
   @media screen and (max-width:1200px) {
     .detail-image {
