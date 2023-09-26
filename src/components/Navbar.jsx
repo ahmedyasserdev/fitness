@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Stack, useTheme, IconButton, Drawer } from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import { Stack, useTheme, IconButton, Drawer, Badge } from "@mui/material";
+import { Menu,  FavoriteBorder } from "@mui/icons-material";
 import logo from "/assets/images/Logo.png";
-
+import {getFavs} from "../features/slices/FavoritesSlice"
+import {useSelector} from "react-redux"
 const links = [
   { title: "Home", path: "/" },
   { title: "BMI", path: "/bmi" },
 ];
 
+
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const theme = useTheme();
   const location = useLocation();
-
+  const favsLength = useSelector(getFavs)
+  const favsCount = favsLength.length
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
@@ -118,8 +121,21 @@ const Navbar = () => {
           color: theme.palette.primaryColor.main,
         }}
       >
-        <MenuIcon />
+        <Menu />
       </IconButton>
+
+  <Link to ="/favorites" >
+        <IconButton >
+          <Badge badgeContent={favsCount} color = "error"   >
+            <FavoriteBorder sx={{
+              color: "#ff0000",
+              fontSize: "24px",
+            }} />
+          </Badge>
+        </IconButton>
+    
+    
+  </Link>
     </Stack>
   );
 };
