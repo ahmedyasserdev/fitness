@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import ExerciseDetails from "./pages/ExerciseDetails";
 import Home from "./pages/Home";
 import Footer from './components/Footer';
+import Bmi from "./pages/BMI";
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -20,6 +21,7 @@ const App = () => {
             <Routes>
               <Route index  element ={<Home />}  />
               <Route path = "/exercise/:id"  element ={<ExerciseDetails />}  />
+              <Route path = "/bmi"  element ={<Bmi />}  />
             </Routes>
           <Footer />
           </Box>
