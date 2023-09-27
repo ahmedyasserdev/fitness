@@ -17,6 +17,10 @@ const Exercises = () => {
     const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage
     const currentExercises = exercises.slice(indexOfFirstExercise, indexOfLastExercise)
 
+
+
+
+    
     useEffect(() => {
         if (chosenPart !== "all") {
             dispatch(fetchByBodyParts(chosenPart))
@@ -75,9 +79,11 @@ const Exercises = () => {
                             sx={{
                                 '& .MuiPaginationItem-root': {
                                     color: 'black',
+                                    border :"none"
                                 },
                                 '& .Mui-selected': {
                                     color: theme.palette.primaryColor.main,
+                                    backgroundColor : "white"
                                 },
                             }}
                         />

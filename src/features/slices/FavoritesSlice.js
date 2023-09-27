@@ -10,12 +10,15 @@ const favorites = createSlice({
   initialState,
   reducers: {
     addToFavs: (state, { payload }) => {
-      state.favs.push(payload);
-      localStorage.setItem("favs", JSON.stringify(state.favs));
+      const isFav = !state.favs.some(exercise => exercise.id === payload.id)
+      if (isFav) {
+        state.favs.push(payload);
+        localStorage.setItem("favs", JSON.stringify(state.favs));
+      }
     },
-
+    
     deleteFromFavs: (state, { payload }) => {
-      state.favs = state.favs.filter((exercise) => exercise.id !== payload);
+      state.favs.splice(payload, 1);
       localStorage.setItem("favs", JSON.stringify(state.favs));
     },
 

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Footer from './components/Footer';
 import Bmi from "./pages/BMI";
 import Favorites from "./pages/Favorites";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -24,6 +25,7 @@ const App = () => {
               <Route path = "/exercise/:id"  element ={<ExerciseDetails />}  />
               <Route path = "/bmi"  element ={<Bmi />}  />
               <Route path = "/favorites"  element ={<Favorites />}  />
+              <Route path = "*"  element ={<NotFound />}  />
             </Routes>
           <Footer />
           </Box>

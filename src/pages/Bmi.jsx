@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, TextField, useTheme, Typography, Button, Stack } from "@mui/material"
 
 const Bmi = () => {
+    const [showResult, setShowResult] = useState(false);
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
     const dispatch = useDispatch();
@@ -11,9 +12,11 @@ const Bmi = () => {
     const theme = useTheme();
     const { BMI, Class } = bmi;
 
+
     const handleClick = () => {
         if (height && weight) {
             dispatch(fetchBMI({ height, weight }));
+            setShowResult(true); 
 
             setHeight("");
             setWeight("");
@@ -23,26 +26,30 @@ const Bmi = () => {
     const renderTextField = (placeholder, value, onChange) => {
         return (
             <TextField
-                sx={{
-                    '.MuiInputBase-input': {
-                        fontWeight: 700,
-                        borderRadius: "4px",
-                        padding: "10px",
-                        color: theme.palette.primaryColor.main,
+            sx={{
+                '.MuiInputBase-input': {
+                    fontWeight: 700,
+                    borderRadius: "4px",
+                    padding: "10px",
+                    color: theme.palette.primaryColor.main,
+                },
+                '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        border: "none",
                     },
-                    '& .MuiOutlinedInput-root': {
-                        '&.Mui-focused fieldset': {
-                            border: "transparent",
-                        },
+                    '&.Mui-focused fieldset': {
+                        border: "none",
                     },
-                    backgroundColor: "#fff",
-                    width: { xs: "350px", md: "400px" },
-                    height: "60px",
-                }}
-                type="text"
-                placeholder={placeholder}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
+                },
+                backgroundColor: "#fff",
+                width: { xs: "350px", md: "400px" },
+                height: "60px",
+            }}
+            type="text"
+            placeholder={placeholder}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+
             />
         );
     };
@@ -75,7 +82,7 @@ const Bmi = () => {
                     </Button>
                 </Stack>
 
-                {bmi ? (
+                {showResult && bmi ? (
                     <Box sx={{ backgroundColor: "#fff", mx: { xs: "12px", sm: "0" }, minWidth: "300px", borderRadius: "8px", p: "50px" }}  >
                         <Typography variant="h6" color="#000" textTransform="capitalize"  >
                             your bmi is {'  '}

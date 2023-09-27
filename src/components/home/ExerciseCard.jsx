@@ -3,31 +3,30 @@ import { useState, useEffect } from "react"
 import { Stack, Button, Box, useTheme, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import { FavoriteBorder, Favorite } from "@mui/icons-material";
-import { useDispatch } from "react-redux"
-import { deleteFromFavs, addToFavs } from "../../features/slices/FavoritesSlice.js"
+import { useDispatch , useSelector } from "react-redux"
+import { deleteFromFavs, addToFavs , getFavs } from "../../features/slices/FavoritesSlice.js"
 
 const ExerciseCard = ({ exercise }) => {
+    const favorites = useSelector(getFavs);
     const { name, id, gifUrl, bodyPart, target } = exercise;
     const [isFavorite, setIsFavorite] = useState(false);
     const theme = useTheme();
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const storedFavorites = localStorage.getItem("favs");
-        if (storedFavorites) {
-            const parsedFavorites = JSON.parse(storedFavorites);
-            const isExerciseFavorite = parsedFavorites.some(
-                (fav) => fav.id === exercise.id
-            );
-            setIsFavorite(isExerciseFavorite);
-        }
-    }, [])
+ useEffect(() => {
+    const isExerciseFavorite = favorites.some(
+      (fav) => fav.id === exercise.id
+    );
+    setIsFavorite(isExerciseFavorite);
+  }, [favorites]);
+
+
 
     const handleFavoriteClick = (e) => {
         e.preventDefault();
     
         if (isFavorite) {
-            dispatch(deleteFromFavs(id));
+            dispatch(deleteFromFavs(exercise));
             setIsFavorite(false); 
         } else {
             dispatch(addToFavs(exercise));
